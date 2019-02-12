@@ -5,17 +5,22 @@ namespace Task_1
 {
     class Program
     {
-        public bool Palin(object s1)
+        public static void ReadF()
         {
             StreamReader sr = new StreamReader("input.txt");        //открываем файл 
-            String s1 = sr.ReadToEnd();     // присваиваем строке всё содержимое файла
-            String[] arr = s1.Split();      // разделяем по пробелу
+            String s = sr.ReadToEnd();     // присваиваем строке всё содержимое файла
+            String[] arr = s.Split();      // разделяем по пробелу
+        }
+
+        public static bool Palin()
+        {
+            
             int i = 0;
-            int j = s1.Length - 1;
+            int j = s.Length - 1;
 
             while (i < j)
             {
-                if (s1[i] != s1[j])         // проверяем строку на палиндромность через реверс
+                if (s[i] != s[j])         // проверяем строку на палиндромность через реверс
                     return false;
 
                 i++;
@@ -24,14 +29,18 @@ namespace Task_1
 
             return true;
 
+            //sr.Close();
+
         }
 
 
         static void Main(string[] args)
         {
-            for (int i = 0; i < s1.Length; i++)     // создаем цикл, который бежит от 1 до значения, равному размеру строки
+            ReadF();
+
+            for (int i = 0; i < s.Length; i++)     // создаем цикл, который бежит от 1 до значения, равному размеру строки
             {
-                if (Palin(s1[i]))        // проверяем строку на палиндромность с помощью вызова функции
+                if (Palin(s[i]))        // проверяем строку на палиндромность с помощью вызова функции
                     Console.WriteLine("Yes");
                 else
                     Console.WriteLine("No");
