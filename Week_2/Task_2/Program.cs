@@ -1,26 +1,12 @@
-﻿using System;
-using System.IO;
+﻿using System;       // общее
+using System.Collections.Generic;       // для листа
+using System.IO;        // для работы с файлами
 
 namespace Task_2
 {
     class Program
     {
-        public static void ReadF()
-        {
-            StreamReader sr = new StreamReader("input.txt");
-            String s = sr.ReadToEnd();
-            String[] arr = s.Split();
-            int sum = 0;
-            foreach (String a in arr)
-            {
-                sum += int.Parse(a);
-            }
-            sr.Close();
 
-            StreamWriter sw = new StreamWriter("output.txt");
-            sw.WriteLine(sum);
-            sw.Close();
-        }
 
         static bool Prime(int a) // создаем логическую функцию, которая определяет простоту числа
         {
@@ -42,9 +28,32 @@ namespace Task_2
 
         static void Main(string[] args)
         {
-            ReadF();
-            Prime();
-            Console.WriteLine("Hello World!");
+            FileStream fs = new FileStream(@"C:\Texts\input_t2.txt", FileMode.Open, FileAccess.Read);       //открываем файл, указывая до него путь
+            StreamReader sr = new StreamReader(fs);     // считываем
+
+            String s = sr.ReadToEnd();
+            int[] arr = Array.ConvertAll<string, int>(s.Split(), int.Parse);        // создаем массив, сразу конвертим и разделяем по пробелу
+
+            List<int> primeArr = new List<int>(arr.Length);         // создаем листик в который будем вписывать наши простые числа
+            foreach (int el in arr)
+            {
+                if (Prime(el))
+                {
+                    primeArr.Add(el);
+                }
+            }
+
+            using (StreamWriter sw = new StreamWriter(@"C:\Texts\output.txt"))       // оутпутим в другой текстовый документ
+            {
+                foreach (int el in primeArr)
+                {
+                    sw.Write(el + " ");
+                }
+
+                sw.Close();
+                sr.Close();    
+            }
         }
     }
 }
+
