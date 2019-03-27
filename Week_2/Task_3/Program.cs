@@ -19,7 +19,7 @@ namespace Task_3
             {
                 Spisok(floor);     // разделяем, властвуем, унижаем
                 Console.WriteLine(f.Name);
-            }
+            } 
 
             foreach (DirectoryInfo d in dir.GetDirectories())
             {
