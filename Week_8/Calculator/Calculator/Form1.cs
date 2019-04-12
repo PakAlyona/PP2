@@ -149,6 +149,7 @@ namespace Calculator
         private void button18_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
+            label1.Text = "";
         }
 
         private void button12_Click(object sender, EventArgs e)
