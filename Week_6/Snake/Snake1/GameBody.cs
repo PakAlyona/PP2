@@ -10,6 +10,7 @@ namespace Snake1
     {
         List<GameObject> g_objects;
         public long m,d;
+        public int i = 1;
         public bool isAlive;
         public Snake snake;
         public Food food;
@@ -34,7 +35,7 @@ namespace Snake1
 
         public void Start()
         {
-            Load();
+            //Load();
             ConsoleKeyInfo keyInfo = Console.ReadKey();
 
             Thread thread = new Thread(MoveSnake);
@@ -65,7 +66,10 @@ namespace Snake1
                     while (food.IsCollisionWithObject(snake) || food.IsCollisionWithObject(wall))
                         food.Generate();
                     if (snake.body.Count % 5 == 0)
+                    {
+                        i++;
                         wall.NextLevel();
+                    }
                 }
                 if (snake.IsCollisionWithObject(wall))
                 {
@@ -84,6 +88,10 @@ namespace Snake1
             foreach (GameObject g in g_objects)
                 g.Draw();
             m = snake.body.Count;
+
+            Console.SetCursorPosition(50, 8);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("           Welcome to the " + i + " level!");
             Console.SetCursorPosition(50, 15);
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("                            Previous result: ");
